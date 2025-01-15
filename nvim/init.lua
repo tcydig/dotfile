@@ -671,7 +671,13 @@ require("lazy").setup({
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
-				"gopls",
+				"gopls", -- golang lsp
+				"pyright", -- python lsp
+				"ts_ls", --TypeScript server
+				"eslint",
+				"html",
+				"cssls",
+				"jsonls",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -999,4 +1005,4 @@ require("lazy").setup({
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+-
