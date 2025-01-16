@@ -159,8 +159,8 @@ vim.opt.confirm = true
 
 -- Tab Indent
 vim.opt.expandtab = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 
@@ -697,6 +697,7 @@ require("lazy").setup({
 				"html",
 				"cssls",
 				"jsonls",
+				"tailwindcss-language-server",
 			})
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
@@ -955,6 +956,10 @@ require("lazy").setup({
 				"query",
 				"vim",
 				"vimdoc",
+				"css",
+				"go",
+				"gitignore",
+				"scss",
 			},
 			-- Autoinstall languages that are not installed
 			auto_install = true,
