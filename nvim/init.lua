@@ -1,33 +1,4 @@
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-vim.g.have_nerd_font = false
--- options
-vim.opt.number = true
-vim.opt.mouse = "a"
-vim.opt.showmode = false
-vim.schedule(function()
-	vim.opt.clipboard = "unnamedplus"
-end)
-vim.opt.breakindent = true
-vim.opt.undofile = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.signcolumn = "yes"
-vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-vim.opt.inccommand = "split"
-vim.opt.cursorline = true
-vim.opt.scrolloff = 10
-vim.opt.confirm = true
-vim.opt.expandtab = true
-vim.opt.tabstop = 2
-vim.opt.shiftwidth = 2
-vim.opt.autoindent = true
-vim.opt.smartindent = true
+require("config.base")
 
 -- keymap
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
@@ -172,6 +143,8 @@ require("lazy").setup({
 
 			-- Useful for getting pretty icons, but requires a Nerd Font.
 			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+			"kyazdani42/nvim-web-devicons",
+			"nvim-telescope/telescope-file-browser.nvim",
 		},
 		config = function()
 			require("telescope").setup({
@@ -198,7 +171,12 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-
+			vim.keymap.set("n", "<leader>;f", function()
+				builtin.find_files({
+					not_ignore = false,
+					hidden = true,
+				})
+			end, { desc = "Lists files in your current working directory, respects .gitignore" })
 			-- Slightly advanced example of overriding default behavior and theme
 			vim.keymap.set("n", "<leader>/", function()
 				-- You can pass additional configuration to Telescope to change the theme, layout, etc.
@@ -396,6 +374,24 @@ require("lazy").setup({
 			})
 		end,
 	},
+	{
+		"nvimdev/lspsaga.nvim",
+		config = function()
+			require("lspsaga").setup({
+				vim.keymap.set("n", "<C-j>", "<Cmd>Lspsaga diagnostic_jump_next<CR>", opts),
+				vim.keymap.set("n", "K", "<Cmd>Lspsaga hover_doc<CR>", opts),
+				vim.keymap.set("n", "gd", "<Cmd>Lspsaga lsp_finder<CR>", opts),
+				vim.keymap.set("i", "<C-k>", "<Cmd>Lspsaga signature_help<CR>", opts),
+				vim.keymap.set("n", "gp", "<Cmd>Lspsaga preview_definition<CR>", opts),
+				vim.keymap.set("n", "gr", "<Cmd>Lspsaga rename<CR>", opts),
+				vim.keymap.set("n", "fd", "<Cmd>Lspsaga finder tyd+ref+imp+def<CR>"),
+			})
+		end,
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter", -- optional
+			"nvim-tree/nvim-web-devicons", -- optional
+		},
+	},
 
 	{ -- Autoformat
 		"stevearc/conform.nvim",
@@ -561,17 +557,26 @@ require("lazy").setup({
 		-- change the command in the config to whatever the name of that colorscheme is.
 		--
 		-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-		"folke/tokyonight.nvim",
+		"neanias/everforest-nvim",
+		background = "hard",
 		priority = 1000, -- Make sure to load this before all the other start plugins.
-		init = function()
-			-- Load the colorscheme here.
-			-- Like many other themes, this one has different styles, and you could load
-			-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-			vim.cmd.colorscheme("tokyonight-night")
-
-			-- You can configure highlights by doing something like:
-			vim.cmd.hi("Comment gui=none")
+		lazy = false,
+		version = false,
+		config = function()
+			require("everforest").setup({})
 		end,
+		init = function()
+			vim.cmd([[colorscheme everforest]])
+		end,
+		-- init = function()
+		-- Load the colorscheme here.
+		-- Like many other themes, this one has different styles, and you could load
+		-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+		-- vim.cmd.colorscheme("tokyonight-night")
+
+		-- You can configure highlights by doing something like:
+		-- vim.cmd.hi("Comment gui=none")
+		--end,
 	},
 
 	-- Highlight todo, notes, etc in comments
@@ -660,7 +665,74 @@ require("lazy").setup({
 		--    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
 		--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 	},
-
+	{
+		"windwp/nvim-ts-autotag",
+		lazy = false,
+		dependencies = "nvim-treesitter/nvim-treesitter",
+		config = function()
+			require("nvim-ts-autotag").setup()
+		end,
+	},
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = true,
+		-- use opts = {} for passing setup options
+		-- this is equivalent to setup({}) function
+	},
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("lualine").setup({
+				options = {
+					icons_enabled = true,
+					theme = "everforest",
+					section_separators = { left = "", right = "" },
+					component_separators = { left = "", right = "" },
+					disabled_filetypes = {},
+				},
+				sections = {
+					lualine_a = { "mode" },
+					lualine_b = { "branch" },
+					lualine_c = {
+						{
+							"filename",
+							file_status = true, -- displays file status (readonly status, modified status)
+							path = 0, -- 0 = just filename, 1 = relative path, 2 = absolute path
+						},
+					},
+					lualine_x = {
+						{
+							"diagnostics",
+							sources = { "nvim_diagnostic" },
+							symbols = { error = " ", warn = " ", info = " ", hint = " " },
+						},
+						"encoding",
+						"filetype",
+					},
+					lualine_y = { "progress" },
+					lualine_z = { "location" },
+				},
+				inactive_sections = {
+					lualine_a = {},
+					lualine_b = {},
+					lualine_c = {
+						{
+							"filename",
+							file_status = true, -- displays file status (readonly status, modified status)
+							path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
+						},
+					},
+					lualine_x = { "location" },
+					lualine_y = {},
+					lualine_z = {},
+				},
+				tabline = {},
+				extensions = { "fugitive" },
+			})
+		end,
+	},
 	-- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
 	-- init.lua. If you want these files, they are in the repository, so you can just download them and
 	-- place them in the correct locations.
