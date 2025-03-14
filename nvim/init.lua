@@ -733,6 +733,22 @@ require("lazy").setup({
 			})
 		end,
 	},
+	{
+		"voldikss/vim-floaterm",
+		cmd = { "FloatermNew", "FloatermToggle", "FloatermKill" }, -- 必要な時だけ読み込む
+		keys = {
+			{ "<F12>", "<cmd>FloatermToggle<CR>", mode = "n", desc = "Toggle Floaterm", noremap = true, silent = true },
+			{
+				"<F12>",
+				"<C-\\><C-n><cmd>FloatermToggle<CR>",
+				mode = "t",
+				desc = "Close Floaterm",
+				noremap = true,
+				silent = true,
+			},
+		},
+	},
+
 	-- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
 	-- init.lua. If you want these files, they are in the repository, so you can just download them and
 	-- place them in the correct locations.
