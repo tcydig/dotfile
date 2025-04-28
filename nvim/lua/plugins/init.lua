@@ -27,5 +27,6 @@ require("lazy").setup({
   { import = "plugins.config.mini" },
   { import = "plugins.config.autopairs" },
   { import = "plugins.config.todo-comments" },
+  { import = "plugins.config.nvim-tree" },
 })
 
