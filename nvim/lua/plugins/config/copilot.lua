@@ -40,5 +40,15 @@ return {
       copilot_node_command = "node", -- node.js の実行コマンド
       server_opts_overrides = {},
     },
+    config = function()
+      require("copilot").setup({
+        suggestion = {
+          auto_trigger = true,
+          keymap = {
+            accept = "<Tab>", -- Tab で提案を受け入れる
+          },
+        },
+      })
+    end,
   },
 }
