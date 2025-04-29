@@ -38,5 +38,6 @@ require("lazy").setup({
   { import = "plugins.config.lazydev" },
   { import = "plugins.config.luvit-meta" },
   { import = "plugins.config.lspsaga" },
+  { import = "plugins.config.conform" },
 })
 
