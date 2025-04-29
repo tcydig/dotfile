@@ -28,5 +28,9 @@ require("lazy").setup({
   { import = "plugins.config.autopairs" },
   { import = "plugins.config.todo-comments" },
   { import = "plugins.config.nvim-tree" },
+  { import = "plugins.config.avante" },
+  { import = "plugins.config.copilot" },
+  { import = "plugins.config.telescope" },
+  { import = "plugins.config.which-key" },
 })
 

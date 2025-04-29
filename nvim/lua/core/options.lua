@@ -5,6 +5,7 @@ local g = vim.g
 
 -- 基本設定
 opt.number = true
+opt.relativenumber = true
 opt.mouse = "a"
 opt.showmode = false
 opt.clipboard = "unnamedplus"

@@ -21,7 +21,7 @@ return {
         lua_ls = {},
         pyright = {},
         gopls = {},
-        tsserver = {},
+        ts_ls = {},
         html = {},
         cssls = {},
         jsonls = {},
