@@ -6,7 +6,7 @@ vim.opt.fileencoding = "utf-8"
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 -- options
 vim.opt.number = true
 vim.opt.mouse = "a"
