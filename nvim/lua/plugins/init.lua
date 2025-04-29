@@ -33,6 +33,7 @@ require("lazy").setup({
   { import = "plugins.config.telescope" },
   { import = "plugins.config.which-key" },
   { import = "plugins.config.vim-sleuth" },
-  { import = "plugins.config.neo-tree" }
+  { import = "plugins.config.neo-tree" },
+  { import = "plugins.config.gitsigns" }
 })
 
