@@ -32,5 +32,6 @@ require("lazy").setup({
   { import = "plugins.config.copilot" },
   { import = "plugins.config.telescope" },
   { import = "plugins.config.which-key" },
+  { import = "plugins.config.vim-sleuth" }
 })
 
