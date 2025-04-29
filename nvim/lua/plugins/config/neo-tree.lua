@@ -19,6 +19,15 @@ return {
 						hide_dotfiles = false, -- 隠しファイルを表示
 					},
 				},
+        default_component_configs = {
+          icon = {
+            folder_closed = "",
+            folder_open = "",
+            folder_empty = "",
+            default = "",
+            highlight = "NeoTreeFileIcon",
+          },
+        },
 			})
 		end,
 	}
