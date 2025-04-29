@@ -34,6 +34,8 @@ require("lazy").setup({
   { import = "plugins.config.which-key" },
   { import = "plugins.config.vim-sleuth" },
   { import = "plugins.config.neo-tree" },
-  { import = "plugins.config.gitsigns" }
+  { import = "plugins.config.gitsigns" },
+  { import = "plugins.config.lazydev" },
+  { import = "plugins.config.luvit-meta" },
 })
 
