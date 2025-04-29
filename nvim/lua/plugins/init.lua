@@ -27,11 +27,12 @@ require("lazy").setup({
   { import = "plugins.config.mini" },
   { import = "plugins.config.autopairs" },
   { import = "plugins.config.todo-comments" },
-  { import = "plugins.config.nvim-tree" },
+  -- { import = "plugins.config.nvim-tree" },
   { import = "plugins.config.avante" },
   { import = "plugins.config.copilot" },
   { import = "plugins.config.telescope" },
   { import = "plugins.config.which-key" },
-  { import = "plugins.config.vim-sleuth" }
+  { import = "plugins.config.vim-sleuth" },
+  { import = "plugins.config.neo-tree" }
 })
 

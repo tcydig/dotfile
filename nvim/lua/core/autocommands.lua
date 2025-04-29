@@ -11,3 +11,10 @@ local mygroup = augroup("MyAutoCmds", { clear = true })
 --   pattern = "*",
 --   command = "lua vim.lsp.buf.formatting_sync()"
 -- })
+autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
